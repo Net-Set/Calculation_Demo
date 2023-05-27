@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ROI Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4caf50;
+      color: #ffffff;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ROI Calculator</h1>
+    <div class="form-group">
+      <label for="amount-invested">Amount Invested:</label>
+      <input type="number" id="amount-invested" min="0" required>
+    </div>
+    <div class="form-group">
+      <label for="amount-returned">Amount Returned:</label>
+      <input type="number" id="amount-returned" min="0" required>
+    </div>
+    <div class="form-group">
+      <label for="investment-period">Investment Period (in years):</label>
+      <input type="number" id="investment-period" min="0" required>
+    </div>
+    <button class="btn" onclick="calculateROI()">Calculate</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateROI() {
+      var amountInvested = parseFloat(document.getElementById('amount-invested').value);
+      var amountReturned = parseFloat(document.getElementById('amount-returned').value);
+      var investmentPeriod = parseInt(document.getElementById('investment-period').value);
+
+      var totalGain = amountReturned - amountInvested;
+      var roiPercentage = (totalGain / amountInvested) * 100;
+      var simpleAnnualROI = roiPercentage / investmentPeriod;
+      var compoundAnnualGrowthRate = Math.pow((amountReturned / amountInvested), (1 / investmentPeriod)) - 1;
+
+      var resultText = "Total Gain on Investment: " + totalGain.toFixed(2) + "<br> Return on Investment (ROI): " + roiPercentage.toFixed(2) + "%<br> Simple Annual ROI: " + simpleAnnualROI.toFixed(2) + "%<br> Compound Annual Growth Rate (CAGR): " + compoundAnnualGrowthRate.toFixed(2) + "%";
+      document.getElementById('result').innerHTML = resultText;
+    }
+  </script>
+</body>
+</html>

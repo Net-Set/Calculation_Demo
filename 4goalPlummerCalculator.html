@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Goal Planner Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4caf50;
+      color: #ffffff;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Goal Planner Calculator</h1>
+    <div class="form-group">
+      <label for="current-savings">Current Savings:</label>
+      <input type="number" id="current-savings" min="0" required>
+    </div>
+    <div class="form-group">
+      <label for="monthly-savings">Monthly Savings:</label>
+      <input type="number" id="monthly-savings" min="0" required>
+    </div>
+    <div class="form-group">
+      <label for="investment-return">Investment Return (%):</label>
+      <input type="number" id="investment-return" min="0" required>
+    </div>
+    <div class="form-group">
+      <label for="goal-amount">Goal Amount:</label>
+      <input type="number" id="goal-amount" min="0" required>
+    </div>
+    <button class="btn" onclick="calculateGoal()">Calculate</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateGoal() {
+      var currentSavings = parseInt(document.getElementById('current-savings').value);
+      var monthlySavings = parseInt(document.getElementById('monthly-savings').value);
+      var investmentReturn = parseFloat(document.getElementById('investment-return').value);
+      var goalAmount = parseInt(document.getElementById('goal-amount').value);
+
+      var monthsNeeded = Math.ceil((goalAmount - currentSavings) / (monthlySavings + (monthlySavings * investmentReturn / 100)));
+      var yearsNeeded = Math.floor(monthsNeeded / 12);
+      var remainingMonths = monthsNeeded % 12;
+
+      var resultText = "Years needed: " + yearsNeeded + "<br> Months needed: " + remainingMonths;
+      document.getElementById('result').innerHTML = resultText;
+    }
+  </script>
+</body>
+</html>
